@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IDESAM • Solicitações de Pagamento</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Solicitações de Pagamento • IDESAM</h1>
+      <p>Fluxo simplificado de cadastro, revisão e aprovação de despesas.</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Nova solicitação</h2>
+        <form id="expense-form">
+          <label>
+            Solicitante
+            <input name="requester" required placeholder="Nome do colaborador" />
+          </label>
+
+          <label>
+            Centro de custo
+            <input name="costCenter" required placeholder="Ex.: Projeto Amazônia" />
+          </label>
+
+          <label>
+            Descrição da despesa
+            <textarea name="description" rows="3" required placeholder="Descreva a finalidade da despesa"></textarea>
+          </label>
+
+          <div class="grid-2">
+            <label>
+              Valor (R$)
+              <input name="amount" type="number" step="0.01" min="0.01" required />
+            </label>
+
+            <label>
+              Vencimento
+              <input name="dueDate" type="date" required />
+            </label>
+          </div>
+
+          <button type="submit">Criar solicitação</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="section-head">
+          <h2>Fila de aprovação</h2>
+          <button id="seed-demo" type="button" class="secondary">Carregar dados de exemplo</button>
+        </div>
+
+        <div class="filters">
+          <label>
+            Status
+            <select id="status-filter">
+              <option value="all">Todos</option>
+              <option value="PENDENTE">Pendente</option>
+              <option value="APROVADO_GESTOR">Aprovado pelo Gestor</option>
+              <option value="APROVADO_FINANCEIRO">Aprovado pelo Financeiro</option>
+              <option value="REJEITADO">Rejeitado</option>
+            </select>
+          </label>
+
+          <label>
+            Papel de aprovação
+            <select id="actor-role">
+              <option value="GESTOR">Gestor</option>
+              <option value="FINANCEIRO">Financeiro</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Solicitante</th>
+                <th>Centro de custo</th>
+                <th>Valor</th>
+                <th>Vencimento</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="expense-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <template id="row-template">
+      <tr>
+        <td data-col="id"></td>
+        <td data-col="requester"></td>
+        <td data-col="costCenter"></td>
+        <td data-col="amount"></td>
+        <td data-col="dueDate"></td>
+        <td data-col="status"></td>
+        <td data-col="actions"></td>
+      </tr>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
